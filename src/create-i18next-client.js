@@ -1,15 +1,25 @@
 import isNode from 'detect-node'
 import i18next from 'i18next'
-import i18nextXHRBackend from 'i18next-xhr-backend'
+import locizeBackend from 'i18next-locize-backend'
+import xhrBackend from 'i18next-xhr-backend'
 import I18nextBrowserLanguageDetector from 'i18next-browser-languagedetector'
 
 const i18n = i18next.default ? i18next.default : i18next
+
+function getNodeBackendPackageName(useLocize) {
+  if (useLocize === true) {
+    return 'i18next-node-locize-backend'
+  }
+
+  return 'i18next-node-fs-backend'
+}
 
 export default (config) => {
   if (!i18n.isInitialized) {
 
     if (isNode) {
-      const i18nextNodeBackend = eval("require('i18next-node-fs-backend')")
+      const packageName = getNodeBackendPackageName(config.useLocize)
+      const i18nextNodeBackend = eval(`require('${packageName}')`)
       const i18nextMiddleware = eval("require('i18next-express-middleware')")
       i18n.use(i18nextNodeBackend)
       if (config.serverLanguageDetection) {
@@ -18,7 +28,8 @@ export default (config) => {
         i18n.use(serverDetectors)
       }
     } else {
-      i18n.use(i18nextXHRBackend)
+      i18n.use(config.useLocize === true ? locizeBackend : xhrBackend)
+
       if (config.browserLanguageDetection) {
         const browserDetectors = new I18nextBrowserLanguageDetector()
         config.customDetectors.forEach(detector => browserDetectors.addDetector(detector))

@@ -3974,6 +3974,13 @@ i18next-express-middleware@^1.5.0:
   dependencies:
     cookies "0.7.1"
 
+i18next-locize-backend@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/i18next-locize-backend/-/i18next-locize-backend-2.0.2.tgz#6d2f3c806a18d627d566f6dd3ff919e4395c0d6b"
+  integrity sha512-4qge/wR5MNSXkiWesVq8Yur6H1NTV9Qh1gX+J4mPChNBWwrU49mgvxUdKVLktLKjZwiptzOIXMK65w1G83c6/w==
+  dependencies:
+    "@babel/runtime" "^7.4.5"
+
 i18next-node-fs-backend@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/i18next-node-fs-backend/-/i18next-node-fs-backend-2.1.0.tgz#b0ad55eb8671b4dedbd21fe434fb50e964a4ece2"
@@ -3981,6 +3988,13 @@ i18next-node-fs-backend@^2.1.0:
   dependencies:
     js-yaml "3.12.0"
     json5 "2.0.0"
+
+i18next-node-locize-backend@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/i18next-node-locize-backend/-/i18next-node-locize-backend-2.4.3.tgz#0f4b239b26edeff71a3c7f867a71b05c7033c077"
+  integrity sha512-nQvGD2H/Achvb9lK/fuP7fP8TOhmfEKLv/dZS5wLjUOpg9gQP1zmr8UEx7nd9EvKtz+LzVFUg0R209wNjAsKiA==
+  dependencies:
+    request "^2.88.0"
 
 i18next-xhr-backend@^3.0.0:
   version "3.0.0"

@@ -32,25 +32,29 @@ export default (userConfig) => {
     const fs = eval("require('fs')")
     const path = require('path')
 
-    // Set server side backend
-    combinedConfig.backend = {
-      loadPath: path.join(process.cwd(), `${localePath}/${localeStructure}.${localeExtension}`),
-      addPath: path.join(process.cwd(), `${localePath}/${localeStructure}.missing.${localeExtension}`),
+    if (combinedConfig.useLocize !== true) {
+      // Set server side backend
+      combinedConfig.backend = {
+        loadPath: path.join(process.cwd(), `${localePath}/${localeStructure}.${localeExtension}`),
+        addPath: path.join(process.cwd(), `${localePath}/${localeStructure}.missing.${localeExtension}`),
+      }
+
+      if (!combinedConfig.ns) {
+        const getAllNamespaces = p => fs.readdirSync(p).map(file => file.replace(`.${localeExtension}`, ''))
+        combinedConfig.ns = getAllNamespaces(path.join(process.cwd(), `${localePath}/${defaultLanguage}`))
+      }
     }
 
     // Set server side preload (languages and namespaces)
     combinedConfig.preload = allLanguages
-    if (!combinedConfig.ns) {
-      const getAllNamespaces = p => fs.readdirSync(p).map(file => file.replace(`.${localeExtension}`, ''))
-      combinedConfig.ns = getAllNamespaces(path.join(process.cwd(), `${localePath}/${defaultLanguage}`))
-    }
-
   } else {
 
-    // Set client side backend
-    combinedConfig.backend = {
-      loadPath: `/${localePath}/${localeStructure}.${localeExtension}`,
-      addPath: `/${localePath}/${localeStructure}.missing.${localeExtension}`,
+    if (combinedConfig.useLocize !== true) {
+      // Set client side backend
+      combinedConfig.backend = {
+        loadPath: `/${localePath}/${localeStructure}.${localeExtension}`,
+        addPath: `/${localePath}/${localeStructure}.missing.${localeExtension}`,
+      }
     }
 
     combinedConfig.ns = [combinedConfig.defaultNS]
